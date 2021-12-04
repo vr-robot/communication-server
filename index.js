@@ -33,7 +33,7 @@ io.on('connection', (socket) => {
 
 app.get('/', (req, res) => {
   console.log('sent response')
-  res.send('Hello World from Wavelength! If you are on a Verizon network, make a request to http://155.146.4.228. Otherwise, make a request to http://155.146.4.228.')
+  res.send('Hello World from Wavelength! If you are on a Verizon network, make a request to http://155.146.4.228. Otherwise, make a request to http://18.232.126.27.')
 })
 
 app.listen(port, () => {
