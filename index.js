@@ -30,12 +30,14 @@ wss.on('connection', function connection(ws) {
 
   ws.on('message', function incoming(message) {
 
-    console.log(`received: ${message}`);
+    // console.log(`received message`);
 
     let messageObj;
 
     try {
       messageObj = JSON.parse(message);
+
+      // console.log(messageObj.base64)
 
       // send camera stream to all clients
       if(messageObj.sender === 'camera') {
@@ -43,7 +45,10 @@ wss.on('connection', function connection(ws) {
           'sender': 'camera',
           'base64': `${messageObj.base64}`
         });
+
+        // ws.send('hi')
         // console.log('sending', dataStr);
+        //
         ws.send(dataStr);
       }
     }
