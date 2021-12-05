@@ -17,18 +17,20 @@ let server = require('http').createServer();
 
 // Create web socket server on top of a regular http server
 let wss = new WSServer({
-
   server: server
 });
 
 // Also mount the app here
 server.on('request', app);
 
-wss.on('connection', function connection(ws) {
+wss.on('connection', function connection (ws) {
 
   console.log('client connected')
 
-  ws.on('message', function incoming(message) {
+  ws.on('message', (message) => {
+    // ws.send(JSON.stringify({
+    //   answer: 42
+    // }));
 
     // console.log(`received message`);
 
@@ -49,16 +51,19 @@ wss.on('connection', function connection(ws) {
         // ws.send('hi')
         // console.log('sending', dataStr);
         //
-        ws.send(dataStr);
+        // console.log('sending hi')
+        // ws.send(JSON.stringify({
+        //   answer: 43
+        // }));
+        wss.clients.forEach(function each(client) {
+          client.send(dataStr);
+        });
+        // ws.send(dataStr);
       }
     }
     catch(e) {
       console.log('invalid message', message);
     }
-
-    // ws.send(JSON.stringify({
-    //   answer: 42
-    // }));
   });
 });
 
