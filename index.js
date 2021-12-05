@@ -43,10 +43,12 @@ wss.on('connection', function connection (ws) {
 
       // send camera stream to all clients
       if(messageObj.sender === 'camera') {
-        const dataStr = JSON.stringify({
+        const dataObj = {
           'sender': 'camera',
           'base64': `${messageObj.base64}`
-        });
+        }
+
+        const dataStr = JSON.stringify(dataObj);
 
         // ws.send('hi')
         // console.log('sending', dataStr);
