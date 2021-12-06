@@ -33,15 +33,26 @@ wss.on('connection', function connection (ws) {
       // send camera stream data to all clients
       if(messageObj.sender === 'camera') {
         const dataObj = {
-          'sender': 'camera',
+          'sender': `${messageObj.sender}`,
           'data': `${messageObj.data}`
         };
 
-        const dataStr = JSON.stringify(dataObj);
+        wss.clients.forEach(function each(client) {
+          client.send(JSON.stringify(dataObj));
+        });
+      }
+      else if(messageObj.sender === 'vr-controller') {
+        const dataObj = {
+          'sender': `${messageObj.sender}`,
+          'data': `${messageObj.data}`
+        };
 
         wss.clients.forEach(function each(client) {
-          client.send(dataStr);
+          client.send(JSON.stringify(dataObj));
         });
+      }
+      else {
+        console.log('unknown sender', messageObj.sender || 'undefined');
       }
     }
     catch(e) {
