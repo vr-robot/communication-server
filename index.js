@@ -34,7 +34,7 @@ wss.on('connection', function connection (ws) {
       if(messageObj.sender === 'camera') {
         const dataObj = {
           'sender': 'camera',
-          'base64': `${messageObj.base64}`
+          'data': `${messageObj.data}`
         };
 
         const dataStr = JSON.stringify(dataObj);
